@@ -16,12 +16,13 @@ export const Route = createFileRoute("/")({
 type Side = "them" | "me";
 
 type Step =
+  | { kind: "card"; name: string; project: string; details: string; budget: string; submitted: string; delay: number }
   | { kind: "msg"; side: Side; text: string; time: string; delay: number; typingFor?: Side }
   | { kind: "note"; text: string; tone: "neutral" | "warn"; delay: number }
   | { kind: "banner"; text: string; tone: "success" | "danger"; delay: number };
 
 const withUsScript: Step[] = [
-  { kind: "msg", side: "them", text: "Hi, I'm looking to remodel my kitchen, can I get a quote this week?", time: "10:14 AM", delay: 600 },
+  { kind: "card", name: "Sarah Mitchell", project: "Kitchen remodel", details: "Full gut + island", budget: "$40k–$60k", submitted: "Submitted 10:14 AM via website form", delay: 400 },
   { kind: "msg", side: "me", text: "Hi Sarah! Thanks for reaching out. We'd love to help with your kitchen remodel. To get you an accurate quote — is this a full gut renovation or more of an update (cabinets, counters, etc.)?", time: "10:14 AM", delay: 1400, typingFor: "me" },
   { kind: "msg", side: "them", text: "Full gut, we want to move the island too", time: "10:15 AM", delay: 1600, typingFor: "them" },
   { kind: "msg", side: "me", text: "Perfect, that's our specialty. I have a slot Thursday at 10am or Friday at 2pm for a quick 20-min call with our project lead — which works better?", time: "10:15 AM", delay: 1400, typingFor: "me" },
@@ -31,7 +32,7 @@ const withUsScript: Step[] = [
 ];
 
 const withoutUsScript: Step[] = [
-  { kind: "msg", side: "them", text: "Hi, I'm looking to remodel my kitchen, can I get a quote this week?", time: "10:14 AM", delay: 600 },
+  { kind: "card", name: "Sarah Mitchell", project: "Kitchen remodel", details: "Full gut + island", budget: "$40k–$60k", submitted: "Submitted 10:14 AM via website form", delay: 400 },
   { kind: "note", text: "Owner sees it between jobs…", tone: "neutral", delay: 1800 },
   { kind: "msg", side: "me", text: "Hey sorry for the late reply, yes we do kitchen remodels! Can you tell me more about what you're looking for?", time: "1:47 PM", delay: 2200 },
   { kind: "note", text: "Homeowner is now on a call with a competitor", tone: "warn", delay: 2000 },
