@@ -28,6 +28,7 @@ const withUsScript: Step[] = [
   { kind: "msg", side: "me", text: "Perfect, that's our specialty. I have a slot Thursday at 10am or Friday at 2pm for a quick 20-min call with our project lead — which works better?", time: "10:15 AM", delay: 1400, typingFor: "me" },
   { kind: "msg", side: "them", text: "Thursday works!", time: "10:16 AM", delay: 1600, typingFor: "them" },
   { kind: "msg", side: "me", text: "Locked in ✓ You'll get a confirmation text shortly. See you Thursday!", time: "10:16 AM", delay: 1200, typingFor: "me" },
+  { kind: "msg", side: "me", text: "📅 Confirmed: Thursday 10:00 AM with Mike Brennan, Project Lead. We'll text you the address and parking info shortly.", time: "10:16 AM", delay: 1400, typingFor: "me" },
   { kind: "banner", text: "Booked in under 2 minutes. Owner was on a job site.", tone: "success", delay: 800 },
 ];
 
