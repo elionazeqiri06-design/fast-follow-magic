@@ -16,12 +16,13 @@ export const Route = createFileRoute("/")({
 type Side = "them" | "me";
 
 type Step =
+  | { kind: "card"; name: string; project: string; details: string; budget: string; submitted: string; delay: number }
   | { kind: "msg"; side: Side; text: string; time: string; delay: number; typingFor?: Side }
   | { kind: "note"; text: string; tone: "neutral" | "warn"; delay: number }
   | { kind: "banner"; text: string; tone: "success" | "danger"; delay: number };
 
 const withUsScript: Step[] = [
-  { kind: "msg", side: "them", text: "Hi, I'm looking to remodel my kitchen, can I get a quote this week?", time: "10:14 AM", delay: 600 },
+  { kind: "card", name: "Sarah Mitchell", project: "Kitchen remodel", details: "Full gut + island", budget: "$40k–$60k", submitted: "Submitted 10:14 AM via website form", delay: 400 },
   { kind: "msg", side: "me", text: "Hi Sarah! Thanks for reaching out. We'd love to help with your kitchen remodel. To get you an accurate quote — is this a full gut renovation or more of an update (cabinets, counters, etc.)?", time: "10:14 AM", delay: 1400, typingFor: "me" },
   { kind: "msg", side: "them", text: "Full gut, we want to move the island too", time: "10:15 AM", delay: 1600, typingFor: "them" },
   { kind: "msg", side: "me", text: "Perfect, that's our specialty. I have a slot Thursday at 10am or Friday at 2pm for a quick 20-min call with our project lead — which works better?", time: "10:15 AM", delay: 1400, typingFor: "me" },
@@ -31,7 +32,7 @@ const withUsScript: Step[] = [
 ];
 
 const withoutUsScript: Step[] = [
-  { kind: "msg", side: "them", text: "Hi, I'm looking to remodel my kitchen, can I get a quote this week?", time: "10:14 AM", delay: 600 },
+  { kind: "card", name: "Sarah Mitchell", project: "Kitchen remodel", details: "Full gut + island", budget: "$40k–$60k", submitted: "Submitted 10:14 AM via website form", delay: 400 },
   { kind: "note", text: "Owner sees it between jobs…", tone: "neutral", delay: 1800 },
   { kind: "msg", side: "me", text: "Hey sorry for the late reply, yes we do kitchen remodels! Can you tell me more about what you're looking for?", time: "1:47 PM", delay: 2200 },
   { kind: "note", text: "Homeowner is now on a call with a competitor", tone: "warn", delay: 2000 },
@@ -203,6 +204,7 @@ function ChatDemo({
 
 function StepView({ step }: { step: Step }) {
   if (step.kind === "msg") return <Bubble side={step.side} text={step.text} time={step.time} />;
+  if (step.kind === "card") return <CardView step={step} />;
   if (step.kind === "note")
     return (
       <div className="my-2 text-center">
@@ -225,6 +227,33 @@ function StepView({ step }: { step: Step }) {
     >
       {step.tone === "success" ? "✓ " : "✕ "}
       {step.text}
+    </div>
+  );
+}
+
+function CardView({ step }: { step: Extract<Step, { kind: "card" }> }) {
+  return (
+    <div className="animate-in fade-in slide-in-from-bottom-1 duration-200">
+      <div className="rounded-xl border border-neutral-200 bg-white p-3 shadow-sm">
+        <div className="flex items-start gap-2">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#0A84FF]/10 text-sm">
+            📋
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-[12px] font-semibold text-neutral-900">New estimate request</p>
+            <p className="mt-0.5 text-[11px] text-neutral-600">
+              {step.name} · {step.project}
+            </p>
+            <p className="mt-1 text-[11px] text-neutral-500">{step.details}</p>
+            <div className="mt-2 flex items-center gap-2">
+              <span className="rounded-md bg-neutral-100 px-2 py-0.5 text-[10px] font-medium text-neutral-600">
+                {step.budget}
+              </span>
+            </div>
+            <p className="mt-2 text-[10px] text-neutral-400">{step.submitted}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
