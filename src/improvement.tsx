@@ -20,14 +20,23 @@ export const improvementMeta = [
   { property: "og:title", content: "Smart Lead Conversion | Same Lead, Two Outcomes" },
   {
     property: "og:description",
-    content: "Watch the same kitchen remodel lead play out two ways: booked in 2 minutes vs lost by afternoon.",
+    content:
+      "Watch the same kitchen remodel lead play out two ways: booked in 2 minutes vs lost by afternoon.",
   },
 ];
 
 type Side = "them" | "me";
 
 type Step =
-  | { kind: "card"; name: string; project: string; details: string; budget: string; submitted: string; delay: number }
+  | {
+      kind: "card";
+      name: string;
+      project: string;
+      details: string;
+      budget: string;
+      submitted: string;
+      delay: number;
+    }
   | { kind: "msg"; side: Side; text: string; time: string; delay: number; typingFor?: Side }
   | { kind: "note"; text: string; tone: "neutral" | "warn"; delay: number }
   | { kind: "gap"; text: string; delay: number }
@@ -67,7 +76,14 @@ const withUsScript: Step[] = [
     delay: 1400,
     typingFor: "me",
   },
-  { kind: "msg", side: "them", text: "Thursday works!", time: "10:16 AM", delay: 1600, typingFor: "them" },
+  {
+    kind: "msg",
+    side: "them",
+    text: "Thursday works!",
+    time: "10:16 AM",
+    delay: 1600,
+    typingFor: "them",
+  },
   {
     kind: "msg",
     side: "me",
@@ -84,7 +100,12 @@ const withUsScript: Step[] = [
     delay: 1400,
     typingFor: "me",
   },
-  { kind: "banner", text: "Booked in under 2 minutes. Owner was on a job site.", tone: "success", delay: 800 },
+  {
+    kind: "banner",
+    text: "Booked in under 2 minutes. Owner was on a job site.",
+    tone: "success",
+    delay: 800,
+  },
 ];
 
 const withoutUsScript: Step[] = [
@@ -106,7 +127,12 @@ const withoutUsScript: Step[] = [
     time: "1:47 PM",
     delay: 2200,
   },
-  { kind: "note", text: "Homeowner booked an estimate with a competitor", tone: "warn", delay: 2000 },
+  {
+    kind: "note",
+    text: "Homeowner booked an estimate with a competitor",
+    tone: "warn",
+    delay: 2000,
+  },
   {
     kind: "msg",
     side: "me",
@@ -175,7 +201,9 @@ export function ImprovementDemo() {
       <header className="mx-auto max-w-6xl px-6 pt-10 pb-8 text-center md:pt-14">
         <p className="text-sm font-semibold tracking-tight text-foreground">{BRAND_NAME}</p>
         <p className="mt-2 text-sm text-muted-foreground">{AUDIENCE_LINE}</p>
-        <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">Same lead. Two outcomes.</h1>
+        <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
+          Same lead. Two outcomes.
+        </h1>
         <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground md:text-lg">
           10:14 AM kitchen remodel inquiry, booked by 10:16, or lost by afternoon.
         </p>
@@ -212,7 +240,10 @@ export function ImprovementDemo() {
             </p>
           )}
           {hasInteracted && (
-            <button onClick={resetBoth} className="text-sm text-muted-foreground hover:text-foreground">
+            <button
+              onClick={resetBoth}
+              className="text-sm text-muted-foreground hover:text-foreground"
+            >
               Reset both
             </button>
           )}
@@ -246,7 +277,9 @@ export function ImprovementDemo() {
         {demos.map((demo) => (
           <div
             key={demo.id}
-            className={isMobile && mobileTab !== demo.id ? "hidden" : isMobile ? "w-full" : undefined}
+            className={
+              isMobile && mobileTab !== demo.id ? "hidden" : isMobile ? "w-full" : undefined
+            }
           >
             <ChatDemo
               label={demo.label}
@@ -265,7 +298,9 @@ export function ImprovementDemo() {
       </main>
 
       <footer id="book-call" className="mx-auto max-w-3xl px-6 pb-20 text-center">
-        <p className="text-lg font-medium md:text-xl">Every hour you wait costs you jobs. We fix that.</p>
+        <p className="text-lg font-medium md:text-xl">
+          Every hour you wait costs you jobs. We fix that.
+        </p>
         <p className="mt-2 text-sm text-muted-foreground">{PROOF_STAT}</p>
         <p className="mt-2 text-sm text-muted-foreground">{SETUP_LINE}</p>
         <a
@@ -311,7 +346,9 @@ function ChatDemo({
   const scrollRef = useRef<HTMLDivElement>(null);
   const onPlayingChangeRef = useRef(onPlayingChange);
   const onInteractRef = useRef(onInteract);
-  const outcomeTone = script.find((s): s is Extract<Step, { kind: "banner" }> => s.kind === "banner")?.tone;
+  const outcomeTone = script.find(
+    (s): s is Extract<Step, { kind: "banner" }> => s.kind === "banner",
+  )?.tone;
 
   onPlayingChangeRef.current = onPlayingChange;
   onInteractRef.current = onInteract;
@@ -392,7 +429,9 @@ function ChatDemo({
               : "bg-rose-100 text-rose-800 ring-1 ring-rose-200"
           }`}
         >
-          <span className={`h-2 w-2 rounded-full ${accent === "success" ? "bg-emerald-500" : "bg-rose-500"}`} />
+          <span
+            className={`h-2 w-2 rounded-full ${accent === "success" ? "bg-emerald-500" : "bg-rose-500"}`}
+          />
           {label}
         </span>
         <p className="mt-2 text-sm text-muted-foreground">{sublabel}</p>
@@ -488,7 +527,9 @@ function GapView({ text }: { text: string }) {
   return (
     <div className="my-3 flex items-center gap-3">
       <div className="h-px flex-1 bg-neutral-200" />
-      <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wide text-rose-600">{text}</span>
+      <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wide text-rose-600">
+        {text}
+      </span>
       <div className="h-px flex-1 bg-neutral-200" />
     </div>
   );
@@ -529,7 +570,9 @@ function Bubble({ side, text, time }: { side: Side; text: string; time: string }
     >
       <div
         className={`max-w-[78%] rounded-2xl px-3.5 py-2 text-[14px] leading-snug ${
-          mine ? "rounded-br-md bg-[#0A84FF] text-white" : "rounded-bl-md bg-[#E9E9EB] text-neutral-900"
+          mine
+            ? "rounded-br-md bg-[#0A84FF] text-white"
+            : "rounded-bl-md bg-[#E9E9EB] text-neutral-900"
         }`}
       >
         {text}

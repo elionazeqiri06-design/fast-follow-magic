@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -78,17 +79,37 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Smart Lead Conversion | Same Lead, Two Outcomes" },
-      { name: "description", content: "Side-by-side demo: instant AI lead response books remodeling jobs while slow replies go cold." },
+      {
+        name: "description",
+        content:
+          "Side-by-side demo: instant AI lead response books remodeling jobs while slow replies go cold.",
+      },
       { name: "author", content: "Smart Lead Conversion" },
       { property: "og:title", content: "Smart Lead Conversion | Same Lead, Two Outcomes" },
-      { property: "og:description", content: "Watch the same kitchen remodel lead play out two ways: booked in 2 minutes vs lost by afternoon." },
+      {
+        property: "og:description",
+        content:
+          "Watch the same kitchen remodel lead play out two ways: booked in 2 minutes vs lost by afternoon.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@smartleadconversion" },
       { name: "twitter:title", content: "Smart Lead Conversion | Same Lead, Two Outcomes" },
-      { name: "twitter:description", content: "Watch the same kitchen remodel lead play out two ways: booked in 2 minutes vs lost by afternoon." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f7ed80a3-fc2e-4175-8fe0-45ca14f9c4df/id-preview-e4d12061--08b16bd6-d2b3-4330-aeab-83b3b61e7650.lovable.app-1780692195678.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f7ed80a3-fc2e-4175-8fe0-45ca14f9c4df/id-preview-e4d12061--08b16bd6-d2b3-4330-aeab-83b3b61e7650.lovable.app-1780692195678.png" },
+      {
+        name: "twitter:description",
+        content:
+          "Watch the same kitchen remodel lead play out two ways: booked in 2 minutes vs lost by afternoon.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f7ed80a3-fc2e-4175-8fe0-45ca14f9c4df/id-preview-e4d12061--08b16bd6-d2b3-4330-aeab-83b3b61e7650.lovable.app-1780692195678.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f7ed80a3-fc2e-4175-8fe0-45ca14f9c4df/id-preview-e4d12061--08b16bd6-d2b3-4330-aeab-83b3b61e7650.lovable.app-1780692195678.png",
+      },
     ],
     links: [
       {
@@ -112,6 +133,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <body>
         {children}
         <Scripts />
+        <Analytics />
       </body>
     </html>
   );
