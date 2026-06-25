@@ -6,8 +6,6 @@ const BRAND_NAME = "Smart Lead Conversion";
 const AUDIENCE_LINE = "Built for home remodeling contractors";
 const CHANNELS = ["Website forms", "Facebook leads", "Email", "SMS"];
 const SETUP_LINE = "Plugs into your current forms and lead sources. We handle the setup.";
-const CTA_LABEL = "Book a call";
-const CTA_HREF = "mailto:hello@smartleadconversion.com?subject=Book%20a%20call";
 const PROOF_STAT = "78% of leads go with whoever replies first.";
 
 export const improvementMeta = [
@@ -128,16 +126,16 @@ const withoutUsScript: Step[] = [
 const demos = [
   {
     id: "without" as const,
-    label: "Without us",
+    label: "Slow reply",
     sublabel: "Owner texts back between jobs",
-    accent: "danger" as const,
+    accent: "slow" as const,
     script: withoutUsScript,
   },
   {
     id: "with" as const,
-    label: "With us",
-    sublabel: "Instant reply on every channel",
-    accent: "success" as const,
+    label: "Instant reply",
+    sublabel: "Reply on every channel in seconds",
+    accent: "instant" as const,
     script: withUsScript,
   },
 ];
@@ -227,9 +225,9 @@ export function ImprovementDemo() {
               onClick={() => setMobileTab(demo.id)}
               className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
                 mobileTab === demo.id
-                  ? demo.accent === "success"
-                    ? "bg-emerald-600 text-white"
-                    : "bg-rose-600 text-white"
+                  ? demo.accent === "instant"
+                    ? "bg-teal-700 text-white"
+                    : "bg-rose-800 text-white"
                   : "bg-muted text-muted-foreground"
               }`}
             >
@@ -264,16 +262,10 @@ export function ImprovementDemo() {
         ))}
       </main>
 
-      <footer id="book-call" className="mx-auto max-w-3xl px-6 pb-20 text-center">
+      <footer className="mx-auto max-w-3xl px-6 pb-20 text-center">
         <p className="text-lg font-medium md:text-xl">Every hour you wait costs you jobs. We fix that.</p>
         <p className="mt-2 text-sm text-muted-foreground">{PROOF_STAT}</p>
         <p className="mt-2 text-sm text-muted-foreground">{SETUP_LINE}</p>
-        <a
-          href={CTA_HREF}
-          className="mt-6 inline-flex items-center justify-center rounded-full bg-primary px-7 py-3 text-sm font-medium text-primary-foreground transition-transform hover:scale-[1.02] hover:bg-primary/90"
-        >
-          {CTA_LABEL}
-        </a>
       </footer>
     </div>
   );
@@ -293,7 +285,7 @@ function ChatDemo({
 }: {
   label: string;
   sublabel: string;
-  accent: "success" | "danger";
+  accent: "instant" | "slow";
   contactName: string;
   script: Step[];
   playToken: number;
@@ -387,12 +379,12 @@ function ChatDemo({
       <div className="mb-5 text-center">
         <span
           className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold ${
-            accent === "success"
-              ? "bg-emerald-100 text-emerald-800 ring-1 ring-emerald-200"
-              : "bg-rose-100 text-rose-800 ring-1 ring-rose-200"
+            accent === "instant"
+              ? "bg-teal-50 text-teal-900 ring-1 ring-teal-200"
+              : "bg-rose-50 text-rose-900 ring-1 ring-rose-200"
           }`}
         >
-          <span className={`h-2 w-2 rounded-full ${accent === "success" ? "bg-emerald-500" : "bg-rose-500"}`} />
+          <span className={`h-2 w-2 rounded-full ${accent === "instant" ? "bg-teal-600" : "bg-rose-700"}`} />
           {label}
         </span>
         <p className="mt-2 text-sm text-muted-foreground">{sublabel}</p>
@@ -416,7 +408,7 @@ function ChatDemo({
       </PhoneFrame>
 
       {outcome && (
-        <OutcomeBadge text={outcome} tone={outcomeTone === "success" ? "success" : "danger"} />
+        <OutcomeBadge text={outcome} tone={outcomeTone === "success" ? "instant" : "slow"} />
       )}
 
       <div className="mt-5 flex items-center gap-3">
@@ -438,16 +430,16 @@ function ChatDemo({
   );
 }
 
-function OutcomeBadge({ text, tone }: { text: string; tone: "success" | "danger" }) {
+function OutcomeBadge({ text, tone }: { text: string; tone: "instant" | "slow" }) {
   return (
     <div
       className={`mt-4 w-full max-w-[340px] rounded-xl px-4 py-3 text-center text-sm font-semibold ${
-        tone === "success"
-          ? "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200"
-          : "bg-rose-50 text-rose-800 ring-1 ring-rose-200"
+        tone === "instant"
+          ? "bg-teal-50 text-teal-900 ring-1 ring-teal-200"
+          : "bg-rose-50 text-rose-900 ring-1 ring-rose-200"
       }`}
     >
-      {tone === "success" ? "✓ " : "✕ "}
+      {tone === "instant" ? "✓ " : "✕ "}
       {text}
     </div>
   );
@@ -462,7 +454,7 @@ function StepView({ step, hideBanner }: { step: Step; hideBanner?: boolean }) {
       <div className="my-2 text-center">
         <span
           className={`inline-block rounded-full px-3 py-1 text-[11px] font-medium ${
-            step.tone === "warn" ? "bg-amber-50 text-amber-700" : "bg-neutral-100 text-neutral-500"
+            step.tone === "warn" ? "bg-rose-50 text-rose-800" : "bg-neutral-100 text-neutral-500"
           }`}
         >
           {step.text}
@@ -474,8 +466,8 @@ function StepView({ step, hideBanner }: { step: Step; hideBanner?: boolean }) {
     <div
       className={`mt-3 rounded-xl px-4 py-3 text-sm font-medium ${
         step.tone === "success"
-          ? "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200"
-          : "bg-rose-50 text-rose-800 ring-1 ring-rose-200"
+          ? "bg-teal-50 text-teal-900 ring-1 ring-teal-200"
+          : "bg-rose-50 text-rose-900 ring-1 ring-rose-200"
       }`}
     >
       {step.tone === "success" ? "✓ " : "✕ "}
@@ -488,7 +480,7 @@ function GapView({ text }: { text: string }) {
   return (
     <div className="my-3 flex items-center gap-3">
       <div className="h-px flex-1 bg-neutral-200" />
-      <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wide text-rose-600">{text}</span>
+      <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wide text-rose-700">{text}</span>
       <div className="h-px flex-1 bg-neutral-200" />
     </div>
   );
@@ -499,7 +491,7 @@ function CardView({ step }: { step: Extract<Step, { kind: "card" }> }) {
     <div className="animate-in fade-in slide-in-from-bottom-1 duration-200">
       <div className="rounded-xl border border-neutral-200 bg-white p-3 shadow-sm">
         <div className="flex items-start gap-2">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#0A84FF]/10 text-sm">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-teal-100 text-sm">
             📋
           </div>
           <div className="min-w-0 flex-1">
@@ -529,7 +521,7 @@ function Bubble({ side, text, time }: { side: Side; text: string; time: string }
     >
       <div
         className={`max-w-[78%] rounded-2xl px-3.5 py-2 text-[14px] leading-snug ${
-          mine ? "rounded-br-md bg-[#0A84FF] text-white" : "rounded-bl-md bg-[#E9E9EB] text-neutral-900"
+          mine ? "rounded-br-md bg-teal-700 text-white" : "rounded-bl-md bg-[#E9E9EB] text-neutral-900"
         }`}
       >
         {text}
@@ -545,7 +537,7 @@ function TypingBubble({ side }: { side: Side }) {
     <div className={`flex ${mine ? "justify-end" : "justify-start"}`}>
       <div
         className={`flex items-center gap-1 rounded-2xl px-3.5 py-2.5 ${
-          mine ? "rounded-br-md bg-[#0A84FF]" : "rounded-bl-md bg-[#E9E9EB]"
+          mine ? "rounded-br-md bg-teal-700" : "rounded-bl-md bg-[#E9E9EB]"
         }`}
       >
         {[0, 150, 300].map((d) => (
